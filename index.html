@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title data-ar="منصّة كاشف" data-en="Kashef Platform">
+    منصّة كاشف
+  </title>
+
+  <style>
+    :root {
+      --navy: #081a31;
+      --navy-light: #0c354a;
+      --teal: #59dfcd;
+      --teal-dark: #159f91;
+      --bg: #f5f8fb;
+      --text: #172c47;
+      --muted: #718293;
+      --border: #e1e9ef;
+      --warning: #a56a16;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Arial, Tahoma, sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(38, 166, 159, 0.25),
+          transparent 28%
+        ),
+        linear-gradient(135deg, var(--navy), var(--navy-light));
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      opacity: 0.2;
+      background-image:
+        linear-gradient(
+          rgba(130, 237, 220, 0.07) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(130, 237, 220, 0.07) 1px,
+          transparent 1px
+        );
+      background-size: 44px 44px;
+      content: "";
+    }
+
+    header {
+      position: relative;
+      z-index: 3;
+      background: rgba(8, 26, 49, 0.94);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-height: 78px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logo-symbol {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      color: var(--teal);
+      border: 2px solid var(--teal);
+      border-radius: 13px;
+    }
+
+    .logo small {
+      display: block;
+      margin-top: 3px;
+      color: #91b0bd;
+      font-size: 9px;
+      font-weight: normal;
+    }
+
+    .nav {
+      display: flex;
+      gap: 25px;
+      margin-inline-start: auto;
+    }
+
+    .nav a {
+      color: #b3c5d1;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      color: var(--teal);
+    }
+
+    .language-button {
+      padding: 9px 14px;
+      color: #d8f8f3;
+      border: 1px solid #557383;
+      border-radius: 8px;
+      background: #102c43;
+      font-size: 12px;
+    }
+
+    .mobile-button {
+      display: none;
+      color: white;
+      border: 0;
+      background: transparent;
+      font-size: 24px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 70px;
+      padding: 85px 0 100px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 14px;
+      color: #73ecda;
+      border: 1px solid rgba(115, 236, 218, 0.4);
+      border-radius: 30px;
+      background: rgba(115, 236, 218, 0.1);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 22px 0 17px;
+      font-size: clamp(43px, 6vw, 76px);
+      line-height: 1.1;
+      letter-spacing: -3px;
+    }
+
+    h1 span {
+      color: #69e4d2;
+    }
+
+    .description {
+      max-width: 550px;
+      color: #aec4ce;
+      font-size: 15px;
+      line-height: 2;
+    }
+
+    .points {
+      display: flex;
+      gap: 22px;
+      margin-top: 25px;
+      color: #c0d4dc;
+      font-size: 12px;
+    }
+
+    .points span {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .check {
+      display: grid;
+      place-items: center;
+      width: 19px;
+      height: 19px;
+      color: #07353d;
+      border-radius: 50%;
+      background: var(--teal);
+      font-style: normal;
+      font-weight: bold;
+    }
+
+    .scanner {
+      padding: 27px;
+      color: #173149;
+      border: 1px solid rgba(208, 255, 247, 0.7);
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .scanner-top {
+      display: flex;
+      justify-content: space-between;
+      color: #8797a5;
+      font-size: 11px;
+    }
+
+    .secure {
+      color: #159585;
+      font-weight: bold;
+    }
+
+    .scanner-title {
+      margin: 25px 0 22px;
+    }
+
+    .scanner-title h2 {
+      margin: 0 0 5px;
+      font-size: 24px;
+    }
+
+    .scanner-title p {
+      margin: 0;
+      color: #8897a4;
+      font-size: 12px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #53677a;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 55px;
+      padding: 0 14px;
+      border: 1px solid #d6e0e9;
+      border-radius: 11px;
+      background: #fbfdff;
+    }
+
+    .input-box:focus-within {
+      border-color: #31bcae;
+      box-shadow: 0 0 0 4px rgba(49, 188, 174, 0.12);
+    }
+
+    input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      color: #19344d;
+      direction: ltr;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .clear-button {
+      border: 0;
+      color: #8999a6;
+      background: transparent;
+      font-size: 20px;
+    }
+
+    .scan-button {
+      width: 100%;
+      height: 53px;
+      margin-top: 13px;
+      color: #062e3b;
+      border: 0;
+      border-radius: 11px;
+      background: var(--teal);
+      font-weight: bold;
+    }
+
+    .scan-button:hover {
+      background: #72e8d8;
+    }
+
+    .scan-button:disabled {
+      color: #879b99;
+      background: #d5eae7;
+      cursor: not-allowed;
+    }
+
+    .warning-text {
+      margin-top: 15px;
+      padding: 11px;
+      color: #806b47;
+      border: 1px solid #f0dfbf;
+      border-radius: 9px;
+      background: #fffaf1;
+      font-size: 10px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .result {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+
+    .result.safe {
+      color: #146452;
+      border: 1px solid #b9e9d5;
+      background: #effcf6;
+    }
+
+    .result.warning {
+      color: var(--warning);
+      border: 1px solid #f1d39d;
+      background: #fff8e9;
+    }
+
+    .result small {
+      display: block;
+      margin-top: 4px;
+      color: #768b8e;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 35px;
+      margin-bottom: 35px;
+    }
+
+    .section-head h2 {
+      margin: 9px 0 0;
+      font-size: 40px;
+    }
+
+    .section-head p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .kicker {
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: white;
+      box-shadow: 0 8px 25px rgba(28, 55, 80, 0.05);
+    }
+
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 65px;
+      height: 65px;
+      margin-bottom: 18px;
+      color: var(--teal-dark);
+      border-radius: 15px;
+      background: #eafbf8;
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .team {
+      text-align: center;
+    }
+
+    .team .card-icon {
+      width: 83px;
+      height: 83px;
+      margin: 0 auto 14px;
+      border: 2px solid var(--teal-dark);
+      border-radius: 50%;
+    }
+
+    .role {
+      display: inline-block;
+      margin: 7px 0 12px;
+      padding: 5px 11px;
+      color: #168a7e;
+      border-radius: 20px;
+      background: #e7faf6;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .attack {
+      cursor: pointer;
+    }
+
+    .attack .card-icon {
+      color: #c67f2a;
+      background: #fff5e5;
+    }
+
+    .details {
+      display: none;
+      margin-top: 13px;
+      padding-top: 12px;
+      color: #687a88;
+      border-top: 1px solid #edf1f4;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .attack.open .details {
+      display: block;
+    }
+
+    .notice {
+      padding: 23px;
+      color: #537b7b;
+      border: 1px solid #b9e8df;
+      border-radius: 16px;
+      background: #edfbf8;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .notice strong {
+      color: #126e69;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: #91a0ab;
+      border-top: 1px solid #e4ebf0;
+      background: white;
+      font-size: 11px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        width: min(100% - 30px, 600px);
+      }
+
+      .navbar {
+        position: relative;
+      }
+
+      .mobile-button {
+        display: block;
+      }
+
+      .language-button {
+        margin-inline-start: auto;
+      }
+
+      .nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        inset-inline: 0;
+        z-index: 5;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px;
+        border: 1px solid #d7eee9;
+        border-radius: 12px;
+        background: var(--navy);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        padding: 12px;
+      }
+
+      .hero-content {
+        display: block;
+        padding: 60px 0 70px;
+      }
+
+      .scanner {
+        margin-top: 45px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 17px;
+      }
+
+      .section-head h2 {
+        font-size: 32px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero" id="top">
+
+    <header>
+      <div class="container navbar">
+
+        <a class="logo" href="#top">
+          <span class="logo-symbol">✓</span>
+
+          <span>
+            <span data-ar="كاشف" data-en="Kashef">
+              كاشف
+            </span>
+
+            <small
+              data-ar="منصّة أمان الروابط"
+              data-en="Link safety platform">
+              منصّة أمان الروابط
+            </small>
+          </span>
+        </a>
+
+        <nav class="nav" id="navigation">
+          <a href="#top" data-ar="الرئيسية" data-en="Home">
+            الرئيسية
+          </a>
+
+          <a href="#scanner" data-ar="فحص رابط" data-en="Link scan">
+            فحص رابط
+          </a>
+
+          <a href="#how" data-ar="كيف يعمل؟" data-en="How it works">
+            كيف يعمل؟
+          </a>
+
+          <a href="#team" data-ar="الفريق" data-en="Team">
+            الفريق
+          </a>
+
+          <a href="#attacks" data-ar="الاختراقات" data-en="Attacks">
+            الاختراقات
+          </a>
+        </nav>
+
+        <button
+          id="languageButton"
+          class="language-button"
+          type="button">
+          English
+        </button>
+
+        <button
+          id="mobileButton"
+          class="mobile-button"
+          type="button"
+          aria-expanded="false">
+          ☰
+        </button>
+
+      </div>
+    </header>
+
+    <div class="container hero-content">
+
+      <div>
+        <span
+          class="tag"
+          data-ar="أمانك يبدأ من نقرة"
+          data-en="Your security starts with one click">
+          أمانك يبدأ من نقرة
+        </span>
+
+        <h1>
+          <span
+            data-ar="لا تفتح الرابط."
+            data-en="Do not open the link.">
+            لا تفتح الرابط.
+          </span>
+
+          <br>
+
+          <span
+            data-ar="افحصه أولًا."
+            data-en="Scan it first.">
+            افحصه أولًا.
+          </span>
+        </h1>
+
+        <p
+          class="description"
+          data-ar="منصّة كاشف تساعدك على معرفة مؤشرات الخطر في الروابط قبل فتحها، عبر تحليل سريع وواضح يفهمه الجميع."
+          data-en="Kashef helps you understand risk indicators in links before opening them through a clear and simple analysis.">
+          منصّة كاشف تساعدك على معرفة مؤشرات الخطر في الروابط قبل فتحها،
+          عبر تحليل سريع وواضح يفهمه الجميع.
+        </p>
+
+        <div class="points">
+          <span>
+            <i class="check">✓</i>
+            <span
+              data-ar="مؤشرات خلال ثوانٍ"
+              data-en="Indicators in seconds">
+              مؤشرات خلال ثوانٍ
+            </span>
+          </span>
+
+          <span>
+            <i class="check">✓</i>
+            <span
+              data-ar="بدون تسجيل"
+              data-en="No registration">
+              بدون تسجيل
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="scanner" id="scanner">
+
+        <div class="scanner-top">
+          <span
+            class="secure"
+            data-ar="♙ اتصال آمن ومشفّر"
+            data-en="♙ Secure encrypted connection">
+            ♙ اتصال آمن ومشفّر
+          </span>
+
+          <span
+            data-ar="فحص #127"
+            data-en="Scan #127">
+            فحص #127
+          </span>
+        </div>
+
+        <div class="scanner-title">
+          <h2
+            data-ar="افحص رابطًا الآن"
+            data-en="Scan a link now">
+            افحص رابطًا الآن
+          </h2>
+
+          <p
+            data-ar="الصق الرابط الذي تريد التحقق منه"
+            data-en="Paste the link you want to check">
+            الصق الرابط الذي تريد التحقق منه
+          </p>
+        </div>
+
+        <form id="scanForm">
+
+          <label
+            for="urlInput"
+            data-ar="الرابط المراد فحصه"
+            data-en="Link to scan">
+            الرابط المراد فحصه
+          </label>
+
+          <div class="input-box">
+            <span>🔗</span>
+
+            <input
+              id="urlInput"
+              type="text"
+              placeholder="https://example.com"
+              autocomplete="url">
+
+            <button
+              id="clearButton"
+              class="clear-button"
+              type="button"
+              aria-label="مسح الرابط">
+              ×
+            </button>
+          </div>
+
+          <button
+            id="scanButton"
+            class="scan-button"
+            type="submit">
+            🔍 ابدأ الفحص
+          </button>
+        </form>
+
+        <div
+          class="warning-text"
+          data-ar="لا توجد خدمة تستطيع ضمان أمان أي رابط بنسبة 100%، والنسخة الحالية واجهة تجريبية وليست فحصًا أمنيًا حقيقيًا بعد."
+          data-en="No service can guarantee that any link is 100% safe. This is a demo interface, not a real security scan yet.">
+          لا توجد خدمة تستطيع ضمان أمان أي رابط بنسبة 100%،
+          والنسخة الحالية واجهة تجريبية وليست فحصًا أمنيًا حقيقيًا بعد.
+        </div>
+
+        <div id="scanResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <span
+            class="kicker"
+            data-ar="خطوات بسيطة"
+            data-en="Simple steps">
+            خطوات بسيطة
+          </span>
+
+          <h2
+            data-ar="كيف يعمل كاشف؟"
+            data-en="How does Kashef work?">
+            كيف يعمل كاشف؟
+          </h2>
+        </div>
+
+        <p
+          data-ar="نساعدك على التوقف لحظة قبل فتح أي رابط، ثم نعرض لك مؤشرات واضحة تساعدك على اتخاذ قرار واعٍ."
+          data-en="We help you pause before opening a link and show clear indicators to support an informed decision.">
+          نساعدك على التوقف لحظة قبل فتح أي رابط، ثم نعرض لك مؤشرات واضحة تساعدك على اتخاذ قرار واعٍ.
+        </p>
+      </div>
+
+      <div class="cards">
+
+        <article class="card">
+          <div class="card-icon">١</div>
+
+          <h3
+            data-ar="الصق الرابط"
+            data-en="Paste the link">
+            الصق الرابط
+          </h3>
+
+          <p
+            data-ar="أدخل الرابط في خانة الفحص بدون الحاجة إلى فتحه أولًا."
+            data-en="Enter the URL without opening it first.">
+            أدخل الرابط في خانة الفحص بدون الحاجة إلى فتحه أولًا.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">٢</div>
+
+          <h3
+            data-ar="نحلّل المؤشرات"
+            data-en="Review indicators">
+            نحلّل المؤشرات
+          </h3>
+
+          <p
+            data-ar="نراجع شكل النطاق والكلمات المشبوهة وبعض العلامات المعروفة."
+            data-en="We review the domain, suspicious wording, and known warning signs.">
+            نراجع شكل النطاق والكلمات المشبوهة وبعض العلامات المعروفة.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">٣</div>
+
+          <h3
+            data-ar="اقرأ النتيجة"
+            data-en="Read the result">
+            اقرأ النتيجة
+          </h3>
+
+          <p
+            data-ar="تظهر لك نتيجة أولية مسؤولة، وتذكّر أن لا خدمة تضمن الأمان 100%."
+            data-en="You receive an initial result. Remember that no service guarantees 100% safety.">
+            تظهر لك نتيجة أولية مسؤولة، وتذكّر أن لا خدمة تضمن الأمان 100%.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <span
+            class="kicker"
+            data-ar="داخل منصّة كاشف"
+            data-en="Inside Kashef">
+            داخل منصّة كاشف
+          </span>
+
+          <h2
+            data-ar="فريق كاشف"
+            data-en="Kashef team">
+            فريق كاشف
+          </h2>
+        </div>
+
+        <p
+          data-ar="فريق يعمل على تقديم تجربة توعوية ومسؤولة لحماية المستخدمين."
+          data-en="A team delivering a responsible awareness experience to protect users.">
+          فريق يعمل على تقديم تجربة توعوية ومسؤولة لحماية المستخدمين.
+        </p>
+      </div>
+
+      <div class="cards">
+
+        <article class="card team">
+          <div class="card-icon">A</div>
+          <h3>Abdulaziz</h3>
+
+          <span
+            class="role"
+            data-ar="مؤسس تنبيه"
+            data-en="Tanبيه founder">
+            مؤسس تنبيه
+          </span>
+
+          <p
+            data-ar=" المسؤول برمجة الموقع والبوت وإدارة تجربة منصّة كاشف."
+            data-en="CEO, website and bot developer, and Kashef experience lead.">
+            المدير التنفيذي ومسؤول برمجة الموقع والبوت وإدارة تجربة منصّة كاشف.
+          </p>
+        </article>
+
+        <article class="card team">
+          <div class="card-icon">T</div>
+
+          <h3
+            data-ar="فريق التوعية"
+            data-en="Awareness team">
+            فريق التوعية
+          </h3>
+
+          <span
+            class="role"
+            data-ar="محتوى أمني"
+            data-en="Security content">
+            محتوى أمني
+          </span>
+
+          <p
+            data-ar="يبسّط المفاهيم الأمنية ويحوّلها إلى نصائح عملية."
+            data-en="Simplifies security concepts into practical advice.">
+            يبسّط المفاهيم الأمنية ويحوّلها إلى نصائح عملية.
+          </p>
+        </article>
+
+        <article class="card team">
+          <div class="card-icon">B</div>
+
+          <h3
+            data-ar="فريق البوت"
+            data-en="Bot team">
+            فريق البوت
+          </h3>
+
+          <span
+            class="role"
+            data-ar="تنبيهات وأتمتة"
+            data-en="Alerts and automation">
+            تنبيهات وأتمتة
+          </span>
+
+          <p
+            data-ar="يطوّر أدوات التنبيه والمساعدة بشكل آمن ومسؤول."
+            data-en="Builds alerting and assistance tools safely and responsibly.">
+            يطوّر أدوات التنبيه والمساعدة بشكل آمن ومسؤول.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="attacks">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <span
+            class="kicker"
+            data-ar="مكتبة كاشف"
+            data-en="Kashef library">
+            مكتبة كاشف
+          </span>
+
+          <h2
+            data-ar="أنواع الاختراقات"
+            data-en="Attack types">
+            أنواع الاختراقات
+          </h2>
+        </div>
+
+        <p
+          data-ar="اضغط على أي بطاقة لمعرفة تعريف مختصر ونصيحة دفاعية."
+          data-en="Click any card for a brief definition and a defensive tip.">
+          اضغط على أي بطاقة لمعرفة تعريف مختصر ونصيحة دفاعية.
+        </p>
+      </div>
+
+      <div class="cards">
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">✉</div>
+
+          <h3
+            data-ar="التصيد الاحتيالي"
+            data-en="Phishing">
+            التصيد الاحتيالي
+          </h3>
+
+          <p
+            data-ar="رسائل أو صفحات مزيفة تحاول الحصول على بياناتك."
+            data-en="Fake messages or pages attempting to obtain your data.">
+            رسائل أو صفحات مزيفة تحاول الحصول على بياناتك.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: تحقق من النطاق والمرسل ولا تضغط الروابط المستعجلة."
+            data-en="Tip: Check the domain and sender; do not click urgent links.">
+            النصيحة: تحقق من النطاق والمرسل ولا تضغط الروابط المستعجلة.
+          </div>
+        </article>
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">▣</div>
+
+          <h3
+            data-ar="البرمجيات الخبيثة"
+            data-en="Malware">
+            البرمجيات الخبيثة
+          </h3>
+
+          <p
+            data-ar="برامج أو ملفات قد تضر الجهاز أو تسرق المعلومات."
+            data-en="Programs or files that may damage your device or steal information.">
+            برامج أو ملفات قد تضر الجهاز أو تسرق المعلومات.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: حمّل من المصادر الرسمية وحدّث نظامك باستمرار."
+            data-en="Tip: Download from official sources and keep your system updated.">
+            النصيحة: حمّل من المصادر الرسمية وحدّث نظامك باستمرار.
+          </div>
+        </article>
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">▤</div>
+
+          <h3
+            data-ar="برامج الفدية"
+            data-en="Ransomware">
+            برامج الفدية
+          </h3>
+
+          <p
+            data-ar="هجوم يشفّر الملفات ويطلب مالًا مقابل استعادتها."
+            data-en="An attack that encrypts files and demands money for their recovery.">
+            هجوم يشفّر الملفات ويطلب مالًا مقابل استعادتها.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: احتفظ بنسخ احتياطية منفصلة واستشر مختصًا."
+            data-en="Tip: Keep separate backups and consult a specialist.">
+            النصيحة: احتفظ بنسخ احتياطية منفصلة واستشر مختصًا.
+          </div>
+        </article>
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">♙</div>
+
+          <h3
+            data-ar="سرقة الحسابات"
+            data-en="Account theft">
+            سرقة الحسابات
+          </h3>
+
+          <p
+            data-ar="استخدام كلمات مرور مسرّبة أو ضعيفة للدخول إلى حسابك."
+            data-en="Using leaked or weak passwords to access your account.">
+            استخدام كلمات مرور مسرّبة أو ضعيفة للدخول إلى حسابك.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: استخدم كلمة مرور فريدة وفعّل المصادقة الثنائية."
+            data-en="Tip: Use a unique password and enable two-factor authentication.">
+            النصيحة: استخدم كلمة مرور فريدة وفعّل المصادقة الثنائية.
+          </div>
+        </article>
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">◌</div>
+
+          <h3
+            data-ar="الهندسة الاجتماعية"
+            data-en="Social engineering">
+            الهندسة الاجتماعية
+          </h3>
+
+          <p
+            data-ar="التلاعب بك لإفشاء معلومة أو تنفيذ إجراء."
+            data-en="Manipulating you into revealing information or taking an action.">
+            التلاعب بك لإفشاء معلومة أو تنفيذ إجراء.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: توقف وتحقق عبر قناة مستقلة قبل الاستجابة."
+            data-en="Tip: Pause and verify through an independent channel before responding.">
+            النصيحة: توقف وتحقق عبر قناة مستقلة قبل الاستجابة.
+          </div>
+        </article>
+
+        <article class="card attack" tabindex="0">
+          <div class="card-icon">◈</div>
+
+          <h3
+            data-ar="حجب الخدمة DDoS"
+            data-en="DDoS attacks">
+            حجب الخدمة DDoS
+          </h3>
+
+          <p
+            data-ar="إغراق موقع بطلبات كثيرة لتعطيل الوصول إليه."
+            data-en="Flooding a site with requests to disrupt access.">
+            إغراق موقع بطلبات كثيرة لتعطيل الوصول إليه.
+          </p>
+
+          <div
+            class="details"
+            data-ar="النصيحة: استخدم حماية للخادم ومراقبة للطلبات غير الطبيعية."
+            data-en="Tip: Use server protection and monitor unusual requests.">
+            النصيحة: استخدم حماية للخادم ومراقبة للطلبات غير الطبيعية.
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="notice">
+        <strong
+          data-ar="تنبيه توعوي:"
+          data-en="Awareness notice:">
+          تنبيه توعوي:
+        </strong>
+
+        <span
+          data-ar="منصّة كاشف للتوعية والحماية فقط. لا توجد خدمة تضمن أمان أي رابط بنسبة 100%. لا تستخدم هذه المعلومات لاختراق حسابات أو أجهزة دون تصريح."
+          data-en="Kashef is for awareness and protection only. No service guarantees that a link is 100% safe. Do not use this information to access accounts or devices without authorization.">
+          منصّة كاشف للتوعية والحماية فقط. لا توجد خدمة تضمن أمان أي رابط بنسبة 100%.
+          لا تستخدم هذه المعلومات لاختراق حسابات أو أجهزة دون تصريح.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer">
+
+      <span>
+        <b data-ar="كاشف" data-en="Kashef">
+          كاشف
+        </b>
+
+        —
+
+        <span
+          data-ar="منصّة أمان الروابط"
+          data-en="Link safety platform">
+          منصّة أمان الروابط
+        </span>
+      </span>
+
+      <span
+        data-ar="كاشف — منصة كاشف للتوعية والحماية"
+        data-en="كاشف — Tanبيه founder and lead developer">
+        <small © 2026 جميع الحقوق محفوظة لـمنصه كاشف>
+      </span>
+
+      <a
+        href="#top"
+        data-ar="↑ العودة للأعلى"
+        data-en="↑ Back to top">
+        ↑ العودة للأعلى
+      </a>
+
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const languageButton =
+        document.getElementById("languageButton");
+
+      const mobileButton =
+        document.getElementById("mobileButton");
+
+      const navigation =
+        document.getElementById("navigation");
+
+      const form =
+        document.getElementById("scanForm");
+
+      const input =
+        document.getElementById("urlInput");
+
+      const clearButton =
+        document.getElementById("clearButton");
+
+      const scanButton =
+        document.getElementById("scanButton");
+
+      const resultBox =
+        document.getElementById("scanResult");
+
+      let language =
+        localStorage.getItem("kashefLanguage") === "en"
+          ? "en"
+          : "ar";
+
+      const messages = {
+        ar: {
+          empty: "أدخل رابطًا أولًا",
+          example: "مثال: https://example.com",
+          invalid: "أدخل رابطًا صالحًا",
+          invalidHint:
+            "استخدم رابطًا يبدأ بـ https:// أو http://",
+          loading: "جاري التحليل...",
+          scan: "🔍 ابدأ الفحص",
+          danger: "انتبه، الرابط يحتاج مراجعة",
+          safe: "لم تظهر مؤشرات خطر معروفة",
+          score: "مؤشر أولي"
+        },
+
+        en: {
+          empty: "Enter a link first",
+          example: "Example: https://example.com",
+          invalid: "Enter a valid link",
+          invalidHint:
+            "Use a link beginning with https:// or http://",
+          loading: "Analyzing...",
+          scan: "🔍 Start scan",
+          danger: "Caution: this link needs review",
+          safe: "No known risk indicators found",
+          score: "Initial indicator"
+        }
+      };
+
+      function translatePage() {
+        document.documentElement.lang = language;
+
+        document.documentElement.dir =
+          language === "ar" ? "rtl" : "ltr";
+
+        document
+          .querySelectorAll("[data-ar][data-en]")
+          .forEach(function (element) {
+            element.textContent =
+              element.getAttribute("data-" + language);
+          });
+
+        languageButton.textContent =
+          language === "ar" ? "English" : "العربية";
+
+        localStorage.setItem(
+          "kashefLanguage",
+          language
+        );
+      }
+
+      function getValidUrl(value) {
+        try {
+          const finalUrl =
+            /^https?:\/\//i.test(value)
+              ? value
+              : "https://" + value;
+
+          const url = new URL(finalUrl);
+
+          if (
+            url.protocol !== "http:" &&
+            url.protocol !== "https:"
+          ) {
+            return null;
+          }
+
+          return url;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function showMessage(title, description) {
+        resultBox.innerHTML = `
+          <div class="result warning">
+            <span>⚠️</span>
+
+            <div>
+              <strong></strong>
+              <small></small>
+            </div>
+          </div>
+        `;
+
+        resultBox.querySelector("strong").textContent = title;
+        resultBox.querySelector("small").textContent = description;
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const value = input.value.trim();
+        const currentMessages = messages[language];
+
+        if (value === "") {
+          showMessage(
+            currentMessages.empty,
+            currentMessages.example
+          );
+
+          input.focus();
+          return;
+        }
+
+        const url = getValidUrl(value);
+
+        if (!url) {
+          showMessage(
+            currentMessages.invalid,
+            currentMessages.invalidHint
+          );
+
+          input.focus();
+          return;
+        }
+
+        const suspicious =
+          /login|verify|update|wallet|gift|free[- ]?prize|secure[- ]?account|bit\.ly/i
+            .test(value);
+
+        const score = suspicious
+          ? 31
+          : Math.min(99, 91 + (url.hostname.length % 8));
+
+        scanButton.disabled = true;
+        scanButton.textContent = currentMessages.loading;
+        resultBox.innerHTML = "";
+
+        setTimeout(function () {
+          const current = messages[language];
+
+          resultBox.innerHTML = `
+            <div class="result ${
+              suspicious ? "warning" : "safe"
+            }">
+              <span style="font-size:22px">
+                ${suspicious ? "⚠️" : "✓"}
+              </span>
+
+              <div>
+                <strong></strong>
+                <small dir="ltr"></small>
+              </div>
+            </div>
+          `;
+
+          resultBox.querySelector("strong").textContent =
+            suspicious ? current.danger : current.safe;
+
+          resultBox.querySelector("small").textContent =
+            url.hostname +
+            " · " +
+            current.score +
+            " " +
+            score +
+            "%";
+
+          scanButton.disabled = false;
+          scanButton.textContent = current.scan;
+        }, 450);
+      });
+
+      clearButton.addEventListener("click", function () {
+        input.value = "";
+        resultBox.innerHTML = "";
+        input.focus();
+      });
+
+      languageButton.addEventListener("click", function () {
+        language = language === "ar" ? "en" : "ar";
+        translatePage();
+      });
+
+      mobileButton.addEventListener("click", function () {
+        navigation.classList.toggle("open");
+
+        mobileButton.setAttribute(
+          "aria-expanded",
+          navigation.classList.contains("open")
+        );
+      });
+
+      document
+        .querySelectorAll(".nav a")
+        .forEach(function (link) {
+          link.addEventListener("click", function () {
+            navigation.classList.remove("open");
+
+            mobileButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+          });
+        });
+
+      document
+        .querySelectorAll(".attack")
+        .forEach(function (card) {
+          function toggleCard() {
+            card.classList.toggle("open");
+          }
+
+          card.addEventListener("click", toggleCard);
+
+          card.addEventListener("keydown", function (event) {
+            if (
+              event.key === "Enter" ||
+              event.key === " "
+            ) {
+              event.preventDefault();
+              toggleCard();
+            }
+          });
+        });
+
+      translatePage();
+    });
+  </script>
+
+</body>
+</html>
