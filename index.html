@@ -1,1429 +1,2022 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title data-ar="منصّة كاشف" data-en="Kashef Platform">
-    منصّة كاشف
-  </title>
-
-  <style>
-    :root {
-      --navy: #081a31;
-      --navy-light: #0c354a;
-      --teal: #59dfcd;
-      --teal-dark: #159f91;
-      --bg: #f5f8fb;
-      --text: #172c47;
-      --muted: #718293;
-      --border: #e1e9ef;
-      --warning: #a56a16;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      background: var(--bg);
-      font-family: Arial, Tahoma, sans-serif;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1150px, calc(100% - 36px));
-      margin: auto;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      color: white;
-      background:
-        radial-gradient(
-          circle at 80% 20%,
-          rgba(38, 166, 159, 0.25),
-          transparent 28%
-        ),
-        linear-gradient(135deg, var(--navy), var(--navy-light));
-    }
-
-    .hero::before {
-      position: absolute;
-      inset: 0;
-      opacity: 0.2;
-      background-image:
-        linear-gradient(
-          rgba(130, 237, 220, 0.07) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(130, 237, 220, 0.07) 1px,
-          transparent 1px
-        );
-      background-size: 44px 44px;
-      content: "";
-    }
-
-    header {
-      position: relative;
-      z-index: 3;
-      background: rgba(8, 26, 49, 0.94);
-    }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      min-height: 78px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .logo-symbol {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      color: var(--teal);
-      border: 2px solid var(--teal);
-      border-radius: 13px;
-    }
-
-    .logo small {
-      display: block;
-      margin-top: 3px;
-      color: #91b0bd;
-      font-size: 9px;
-      font-weight: normal;
-    }
-
-    .nav {
-      display: flex;
-      gap: 25px;
-      margin-inline-start: auto;
-    }
-
-    .nav a {
-      color: #b3c5d1;
-      font-size: 13px;
-    }
-
-    .nav a:hover {
-      color: var(--teal);
-    }
-
-    .language-button {
-      padding: 9px 14px;
-      color: #d8f8f3;
-      border: 1px solid #557383;
-      border-radius: 8px;
-      background: #102c43;
-      font-size: 12px;
-    }
-
-    .mobile-button {
-      display: none;
-      color: white;
-      border: 0;
-      background: transparent;
-      font-size: 24px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 70px;
-      padding: 85px 0 100px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 8px 14px;
-      color: #73ecda;
-      border: 1px solid rgba(115, 236, 218, 0.4);
-      border-radius: 30px;
-      background: rgba(115, 236, 218, 0.1);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    h1 {
-      margin: 22px 0 17px;
-      font-size: clamp(43px, 6vw, 76px);
-      line-height: 1.1;
-      letter-spacing: -3px;
-    }
-
-    h1 span {
-      color: #69e4d2;
-    }
-
-    .description {
-      max-width: 550px;
-      color: #aec4ce;
-      font-size: 15px;
-      line-height: 2;
-    }
-
-    .points {
-      display: flex;
-      gap: 22px;
-      margin-top: 25px;
-      color: #c0d4dc;
-      font-size: 12px;
-    }
-
-    .points span {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .check {
-      display: grid;
-      place-items: center;
-      width: 19px;
-      height: 19px;
-      color: #07353d;
-      border-radius: 50%;
-      background: var(--teal);
-      font-style: normal;
-      font-weight: bold;
-    }
-
-    .scanner {
-      padding: 27px;
-      color: #173149;
-      border: 1px solid rgba(208, 255, 247, 0.7);
-      border-radius: 20px;
-      background: white;
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
-    }
-
-    .scanner-top {
-      display: flex;
-      justify-content: space-between;
-      color: #8797a5;
-      font-size: 11px;
-    }
-
-    .secure {
-      color: #159585;
-      font-weight: bold;
-    }
-
-    .scanner-title {
-      margin: 25px 0 22px;
-    }
-
-    .scanner-title h2 {
-      margin: 0 0 5px;
-      font-size: 24px;
-    }
-
-    .scanner-title p {
-      margin: 0;
-      color: #8897a4;
-      font-size: 12px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #53677a;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .input-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      height: 55px;
-      padding: 0 14px;
-      border: 1px solid #d6e0e9;
-      border-radius: 11px;
-      background: #fbfdff;
-    }
-
-    .input-box:focus-within {
-      border-color: #31bcae;
-      box-shadow: 0 0 0 4px rgba(49, 188, 174, 0.12);
-    }
-
-    input {
-      width: 100%;
-      border: 0;
-      outline: 0;
-      color: #19344d;
-      direction: ltr;
-      text-align: left;
-      font-size: 14px;
-    }
-
-    .clear-button {
-      border: 0;
-      color: #8999a6;
-      background: transparent;
-      font-size: 20px;
-    }
-
-    .scan-button {
-      width: 100%;
-      height: 53px;
-      margin-top: 13px;
-      color: #062e3b;
-      border: 0;
-      border-radius: 11px;
-      background: var(--teal);
-      font-weight: bold;
-    }
-
-    .scan-button:hover {
-      background: #72e8d8;
-    }
-
-    .scan-button:disabled {
-      color: #879b99;
-      background: #d5eae7;
-      cursor: not-allowed;
-    }
-
-    .warning-text {
-      margin-top: 15px;
-      padding: 11px;
-      color: #806b47;
-      border: 1px solid #f0dfbf;
-      border-radius: 9px;
-      background: #fffaf1;
-      font-size: 10px;
-      line-height: 1.8;
-      text-align: center;
-    }
-
-    .result {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 12px;
-    }
-
-    .result.safe {
-      color: #146452;
-      border: 1px solid #b9e9d5;
-      background: #effcf6;
-    }
-
-    .result.warning {
-      color: var(--warning);
-      border: 1px solid #f1d39d;
-      background: #fff8e9;
-    }
-
-    .result small {
-      display: block;
-      margin-top: 4px;
-      color: #768b8e;
-    }
-
-    .section {
-      padding: 80px 0;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 35px;
-      margin-bottom: 35px;
-    }
-
-    .section-head h2 {
-      margin: 9px 0 0;
-      font-size: 40px;
-    }
-
-    .section-head p {
-      max-width: 420px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 2;
-    }
-
-    .kicker {
-      color: var(--teal-dark);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
-    }
-
-    .card {
-      padding: 25px;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      background: white;
-      box-shadow: 0 8px 25px rgba(28, 55, 80, 0.05);
-    }
-
-    .card-icon {
-      display: grid;
-      place-items: center;
-      width: 65px;
-      height: 65px;
-      margin-bottom: 18px;
-      color: var(--teal-dark);
-      border-radius: 15px;
-      background: #eafbf8;
-      font-size: 27px;
-      font-weight: bold;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.9;
-    }
-
-    .team {
-      text-align: center;
-    }
-
-    .team .card-icon {
-      width: 83px;
-      height: 83px;
-      margin: 0 auto 14px;
-      border: 2px solid var(--teal-dark);
-      border-radius: 50%;
-    }
-
-    .role {
-      display: inline-block;
-      margin: 7px 0 12px;
-      padding: 5px 11px;
-      color: #168a7e;
-      border-radius: 20px;
-      background: #e7faf6;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .attack {
-      cursor: pointer;
-    }
-
-    .attack .card-icon {
-      color: #c67f2a;
-      background: #fff5e5;
-    }
-
-    .details {
-      display: none;
-      margin-top: 13px;
-      padding-top: 12px;
-      color: #687a88;
-      border-top: 1px solid #edf1f4;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .attack.open .details {
-      display: block;
-    }
-
-    .notice {
-      padding: 23px;
-      color: #537b7b;
-      border: 1px solid #b9e8df;
-      border-radius: 16px;
-      background: #edfbf8;
-      font-size: 12px;
-      line-height: 1.9;
-    }
-
-    .notice strong {
-      color: #126e69;
-    }
-
-    footer {
-      padding: 28px 0;
-      color: #91a0ab;
-      border-top: 1px solid #e4ebf0;
-      background: white;
-      font-size: 11px;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    @media (max-width: 800px) {
-      .container {
-        width: min(100% - 30px, 600px);
-      }
-
-      .navbar {
-        position: relative;
-      }
-
-      .mobile-button {
-        display: block;
-      }
-
-      .language-button {
-        margin-inline-start: auto;
-      }
-
-      .nav {
-        display: none;
-        position: absolute;
-        top: 70px;
-        inset-inline: 0;
-        z-index: 5;
-        flex-direction: column;
-        gap: 0;
-        padding: 8px;
-        border: 1px solid #d7eee9;
-        border-radius: 12px;
-        background: var(--navy);
-      }
-
-      .nav.open {
-        display: flex;
-      }
-
-      .nav a {
-        padding: 12px;
-      }
-
-      .hero-content {
-        display: block;
-        padding: 60px 0 70px;
-      }
-
-      .scanner {
-        margin-top: 45px;
-      }
-
-      .section {
-        padding: 60px 0;
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .section-head p {
-        margin-top: 17px;
-      }
-
-      .section-head h2 {
-        font-size: 32px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .footer {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#182320">
+<title>مذاكرة قدرات عبدالعزيز</title>
+
+<style>
+:root{
+--bg:#18211f;--panel:#202b28;--panel2:#26332f;
+--text:#e9f0ed;--muted:#9aa9a5;--accent:#719d94;
+--accent2:#36534c;--line:#33413d;--danger:#bd7777;
+--shadow:0 10px 30px #0004
+}
+*{box-sizing:border-box}
+body{
+margin:0;background:var(--bg);color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:flex}
+
+.side{
+width:250px;background:#141c1a;border-left:1px solid var(--line);
+padding:22px 15px;position:fixed;right:0;top:0;height:100vh;z-index:5
+}
+.brand{font-weight:900;font-size:21px;padding:8px 10px 25px}
+.brand small{display:block;color:var(--accent);font-size:12px;margin-top:5px}
+
+.nav button{
+display:block;width:100%;background:transparent;color:var(--muted);
+border-radius:13px;padding:13px;text-align:right;margin:3px 0;border:0
+}
+.nav button.active,.nav button:hover{background:var(--accent2);color:#fff}
+
+.main{
+margin-right:250px;width:calc(100% - 250px);
+max-width:1450px;padding:28px;margin-left:auto
+}
+
+.top{
+display:flex;justify-content:space-between;align-items:center;margin-bottom:18px
+}
+.date{color:var(--muted);font-size:13px;margin-top:4px}
+
+.hero{
+background:linear-gradient(135deg,#263b36,#202d2a);
+border:1px solid var(--line);border-radius:25px;padding:26px;
+display:flex;align-items:center;justify-content:space-between;
+gap:20px;box-shadow:var(--shadow)
+}
+h1{margin:0 0 6px;font-size:28px}
+.muted{color:var(--muted);font-size:13px}
+
+.primary{
+background:var(--accent);color:#12201d;padding:13px 18px;
+border-radius:13px;font-weight:900;border:0
+}
+.secondary{
+background:var(--panel2);color:var(--text);padding:10px 14px;
+border:1px solid var(--line);border-radius:12px
+}
+
+.grid{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:13px;margin:15px 0
+}
+.card,.stat{
+background:var(--panel);border:1px solid var(--line);
+border-radius:20px;padding:18px;box-shadow:var(--shadow)
+}
+
+.stat b{font-size:24px;display:block;margin:5px 0}
+
+.layout{
+display:grid;grid-template-columns:1.1fr .9fr;gap:15px
+}
+.section{
+display:flex;align-items:center;justify-content:space-between;margin-bottom:13px
+}
+.section h2{font-size:18px;margin:0}
+
+.message{
+background:#202d2a;border:1px solid var(--line);
+border-right:4px solid var(--accent);padding:17px;
+border-radius:16px;margin:15px 0
+}
+.message b{display:block;margin-bottom:6px}
+
+.task{
+display:flex;align-items:center;gap:11px;
+border-bottom:1px solid var(--line);padding:12px 0
+}
+.task:last-child{border:0}
+.task input{width:20px;height:20px;accent-color:var(--accent)}
+.task .x{margin-right:auto;background:transparent;color:var(--danger);border:0}
+
+.clock{
+text-align:center;font-size:50px;font-weight:900;
+color:var(--accent);padding:12px
+}
+.center{text-align:center}
+.progress{
+height:9px;background:#111a18;border-radius:20px;overflow:hidden
+}
+.bar{
+height:100%;background:var(--accent);transition:.3s
+}
+
+.page{display:none}
+.page.show{display:block}
+
+/* مدير الملفات */
+.file-manager{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:20px;
+padding:18px;
+box-shadow:var(--shadow)
+}
+
+.file-toolbar{
+display:flex;
+align-items:center;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:18px
+}
+
+.path{
+display:flex;
+align-items:center;
+gap:7px;
+flex-wrap:wrap;
+margin-bottom:15px;
+color:var(--muted);
+font-size:14px
+}
+
+.path button{
+background:transparent;
+border:0;
+color:var(--accent);
+padding:4px;
+font-weight:800
+}
+
+.path .current{
+color:var(--text)
+}
+
+.folder-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px
+}
+
+.folder-item{
+background:var(--panel2);
+border:1px solid var(--line);
+border-radius:16px;
+padding:17px;
+cursor:pointer;
+transition:.2s
+}
+.folder-item:hover{
+transform:translateY(-2px);
+border-color:var(--accent)
+}
+.folder-icon{
+font-size:42px;
+margin-bottom:8px
+}
+.folder-name{
+font-weight:800;
+word-break:break-word
+}
+.folder-count{
+font-size:12px;
+color:var(--muted);
+margin-top:5px
+}
+
+.file-list{
+display:grid;
+gap:8px
+}
+
+.file-row{
+display:flex;
+align-items:center;
+gap:12px;
+background:var(--panel2);
+border:1px solid transparent;
+border-radius:14px;
+padding:12px
+}
+.file-row:hover{
+border-color:var(--line)
+}
+
+.file-icon{
+width:42px;
+height:42px;
+border-radius:11px;
+background:#17211f;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:23px;
+flex-shrink:0
+}
+
+.file-info{
+min-width:0;
+flex:1
+}
+.file-name{
+font-weight:700;
+word-break:break-word
+}
+.file-meta{
+color:var(--muted);
+font-size:11px;
+margin-top:4px
+}
+.file-actions{
+display:flex;
+gap:6px;
+flex-wrap:wrap
+}
+
+.empty{
+text-align:center;
+padding:45px 15px;
+color:var(--muted)
+}
+.empty-icon{
+font-size:45px;
+margin-bottom:10px
+}
+
+.breadcrumb-back{
+display:none
+}
+
+/* عارض الملفات */
+.viewer{
+position:fixed;
+inset:0;
+background:#101614;
+z-index:100;
+display:none;
+flex-direction:column
+}
+.viewer.open{display:flex}
+
+.viewer-head{
+height:65px;
+background:#18211f;
+border-bottom:1px solid var(--line);
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px 15px
+}
+.viewer-title{
+font-weight:800;
+flex:1;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+
+.viewer-body{
+flex:1;
+overflow:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:15px
+}
+
+.viewer-body img{
+max-width:100%;
+max-height:calc(100vh - 100px);
+object-fit:contain
+}
+
+.viewer-body iframe{
+width:100%;
+height:100%;
+border:0;
+border-radius:10px;
+background:white
+}
+
+.viewer-body video,
+.viewer-body audio{
+max-width:100%;
+width:min(1000px,100%)
+}
+
+.text-view{
+white-space:pre-wrap;
+word-break:break-word;
+width:min(1000px,100%);
+background:#202b28;
+padding:20px;
+border-radius:15px;
+font-family:monospace;
+line-height:1.7
+}
+
+.unsupported{
+text-align:center;
+max-width:500px
+}
+
+/* التقويم */
+.cal{
+display:grid;grid-template-columns:repeat(7,1fr);gap:5px
+}
+.cal>div{
+min-height:72px;border:1px solid var(--line);
+border-radius:9px;padding:7px;background:#1c2724
+}
+.cal .head{
+min-height:auto;text-align:center;background:transparent;
+border:0;color:var(--muted)
+}
+.today{outline:2px solid var(--accent)}
+.event{font-size:10px;color:var(--accent);margin-top:5px}
+
+/* مودال */
+.modal{
+display:none;position:fixed;inset:0;background:#0009;
+z-index:200;align-items:center;justify-content:center;padding:18px
+}
+.modal.open{display:flex}
+.box{
+width:min(520px,100%);background:var(--panel);
+border:1px solid var(--line);border-radius:20px;padding:20px
+}
+.box>*{margin-bottom:10px}
+
+input[type=text],input[type=date]{
+background:#17211f;color:var(--text);
+border:1px solid var(--line);padding:12px;
+border-radius:11px;width:100%
+}
+
+@media(max-width:1100px){
+.folder-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:900px){
+.side{width:210px}
+.main{
+margin-right:210px;
+width:calc(100% - 210px);
+padding:20px
+}
+.folder-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:700px){
+.side{
+top:auto;bottom:0;right:0;width:100%;height:70px;
+padding:5px;border-top:1px solid var(--line);border-left:0
+}
+.brand{display:none}
+.nav{display:flex;overflow:auto}
+.nav button{
+min-width:86px;text-align:center;
+font-size:11px;padding:9px 5px
+}
+.main{
+margin:0;width:100%;
+padding:15px 13px 88px
+}
+.hero{display:block;padding:20px}
+.hero .primary{width:100%;margin-top:14px}
+.grid{grid-template-columns:repeat(2,1fr)}
+.layout{grid-template-columns:1fr}
+.folder-grid{grid-template-columns:1fr 1fr}
+.clock{font-size:42px}
+.cal>div{min-height:58px;font-size:11px}
+.file-row{align-items:flex-start}
+.file-actions{margin-right:auto}
+.file-actions button{padding:7px 9px}
+}
+
+@media(max-width:430px){
+.folder-grid{grid-template-columns:1fr}
+.file-row{flex-wrap:wrap}
+.file-info{width:calc(100% - 55px)}
+.file-actions{width:100%;margin-right:54px}
+}
+</style>
+
 </head>
 
 <body>
 
-  <section class="hero" id="top">
-
-    <header>
-      <div class="container navbar">
-
-        <a class="logo" href="#top">
-          <span class="logo-symbol">✓</span>
-
-          <span>
-            <span data-ar="كاشف" data-en="Kashef">
-              كاشف
-            </span>
-
-            <small
-              data-ar="منصّة أمان الروابط"
-              data-en="Link safety platform">
-              منصّة أمان الروابط
-            </small>
-          </span>
-        </a>
-
-        <nav class="nav" id="navigation">
-          <a href="#top" data-ar="الرئيسية" data-en="Home">
-            الرئيسية
-          </a>
-
-          <a href="#scanner" data-ar="فحص رابط" data-en="Link scan">
-            فحص رابط
-          </a>
-
-          <a href="#how" data-ar="كيف يعمل؟" data-en="How it works">
-            كيف يعمل؟
-          </a>
-
-          <a href="#team" data-ar="الفريق" data-en="Team">
-            الفريق
-          </a>
-
-          <a href="#attacks" data-ar="الاختراقات" data-en="Attacks">
-            الاختراقات
-          </a>
-        </nav>
-
-        <button
-          id="languageButton"
-          class="language-button"
-          type="button">
-          English
-        </button>
-
-        <button
-          id="mobileButton"
-          class="mobile-button"
-          type="button"
-          aria-expanded="false">
-          ☰
-        </button>
-
-      </div>
-    </header>
-
-    <div class="container hero-content">
-
-      <div>
-        <span
-          class="tag"
-          data-ar="أمانك يبدأ من نقرة"
-          data-en="Your security starts with one click">
-          أمانك يبدأ من نقرة
-        </span>
-
-        <h1>
-          <span
-            data-ar="لا تفتح الرابط."
-            data-en="Do not open the link.">
-            لا تفتح الرابط.
-          </span>
-
-          <br>
-
-          <span
-            data-ar="افحصه أولًا."
-            data-en="Scan it first.">
-            افحصه أولًا.
-          </span>
-        </h1>
-
-        <p
-          class="description"
-          data-ar="منصّة كاشف تساعدك على معرفة مؤشرات الخطر في الروابط قبل فتحها، عبر تحليل سريع وواضح يفهمه الجميع."
-          data-en="Kashef helps you understand risk indicators in links before opening them through a clear and simple analysis.">
-          منصّة كاشف تساعدك على معرفة مؤشرات الخطر في الروابط قبل فتحها،
-          عبر تحليل سريع وواضح يفهمه الجميع.
-        </p>
-
-        <div class="points">
-          <span>
-            <i class="check">✓</i>
-            <span
-              data-ar="مؤشرات خلال ثوانٍ"
-              data-en="Indicators in seconds">
-              مؤشرات خلال ثوانٍ
-            </span>
-          </span>
-
-          <span>
-            <i class="check">✓</i>
-            <span
-              data-ar="بدون تسجيل"
-              data-en="No registration">
-              بدون تسجيل
-            </span>
-          </span>
-        </div>
-      </div>
-
-      <div class="scanner" id="scanner">
-
-        <div class="scanner-top">
-          <span
-            class="secure"
-            data-ar="♙ اتصال آمن ومشفّر"
-            data-en="♙ Secure encrypted connection">
-            ♙ اتصال آمن ومشفّر
-          </span>
-
-          <span
-            data-ar="فحص #127"
-            data-en="Scan #127">
-            فحص #127
-          </span>
-        </div>
-
-        <div class="scanner-title">
-          <h2
-            data-ar="افحص رابطًا الآن"
-            data-en="Scan a link now">
-            افحص رابطًا الآن
-          </h2>
-
-          <p
-            data-ar="الصق الرابط الذي تريد التحقق منه"
-            data-en="Paste the link you want to check">
-            الصق الرابط الذي تريد التحقق منه
-          </p>
-        </div>
-
-        <form id="scanForm">
-
-          <label
-            for="urlInput"
-            data-ar="الرابط المراد فحصه"
-            data-en="Link to scan">
-            الرابط المراد فحصه
-          </label>
-
-          <div class="input-box">
-            <span>🔗</span>
-
-            <input
-              id="urlInput"
-              type="text"
-              placeholder="https://example.com"
-              autocomplete="url">
-
-            <button
-              id="clearButton"
-              class="clear-button"
-              type="button"
-              aria-label="مسح الرابط">
-              ×
-            </button>
-          </div>
-
-          <button
-            id="scanButton"
-            class="scan-button"
-            type="submit">
-            🔍 ابدأ الفحص
-          </button>
-        </form>
-
-        <div
-          class="warning-text"
-          data-ar="لا توجد خدمة تستطيع ضمان أمان أي رابط بنسبة 100%، والنسخة الحالية واجهة تجريبية وليست فحصًا أمنيًا حقيقيًا بعد."
-          data-en="No service can guarantee that any link is 100% safe. This is a demo interface, not a real security scan yet.">
-          لا توجد خدمة تستطيع ضمان أمان أي رابط بنسبة 100%،
-          والنسخة الحالية واجهة تجريبية وليست فحصًا أمنيًا حقيقيًا بعد.
-        </div>
-
-        <div id="scanResult" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="how">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <span
-            class="kicker"
-            data-ar="خطوات بسيطة"
-            data-en="Simple steps">
-            خطوات بسيطة
-          </span>
-
-          <h2
-            data-ar="كيف يعمل كاشف؟"
-            data-en="How does Kashef work?">
-            كيف يعمل كاشف؟
-          </h2>
-        </div>
-
-        <p
-          data-ar="نساعدك على التوقف لحظة قبل فتح أي رابط، ثم نعرض لك مؤشرات واضحة تساعدك على اتخاذ قرار واعٍ."
-          data-en="We help you pause before opening a link and show clear indicators to support an informed decision.">
-          نساعدك على التوقف لحظة قبل فتح أي رابط، ثم نعرض لك مؤشرات واضحة تساعدك على اتخاذ قرار واعٍ.
-        </p>
-      </div>
-
-      <div class="cards">
-
-        <article class="card">
-          <div class="card-icon">١</div>
-
-          <h3
-            data-ar="الصق الرابط"
-            data-en="Paste the link">
-            الصق الرابط
-          </h3>
-
-          <p
-            data-ar="أدخل الرابط في خانة الفحص بدون الحاجة إلى فتحه أولًا."
-            data-en="Enter the URL without opening it first.">
-            أدخل الرابط في خانة الفحص بدون الحاجة إلى فتحه أولًا.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">٢</div>
-
-          <h3
-            data-ar="نحلّل المؤشرات"
-            data-en="Review indicators">
-            نحلّل المؤشرات
-          </h3>
-
-          <p
-            data-ar="نراجع شكل النطاق والكلمات المشبوهة وبعض العلامات المعروفة."
-            data-en="We review the domain, suspicious wording, and known warning signs.">
-            نراجع شكل النطاق والكلمات المشبوهة وبعض العلامات المعروفة.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">٣</div>
-
-          <h3
-            data-ar="اقرأ النتيجة"
-            data-en="Read the result">
-            اقرأ النتيجة
-          </h3>
-
-          <p
-            data-ar="تظهر لك نتيجة أولية مسؤولة، وتذكّر أن لا خدمة تضمن الأمان 100%."
-            data-en="You receive an initial result. Remember that no service guarantees 100% safety.">
-            تظهر لك نتيجة أولية مسؤولة، وتذكّر أن لا خدمة تضمن الأمان 100%.
-          </p>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="team">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <span
-            class="kicker"
-            data-ar="داخل منصّة كاشف"
-            data-en="Inside Kashef">
-            داخل منصّة كاشف
-          </span>
-
-          <h2
-            data-ar="فريق كاشف"
-            data-en="Kashef team">
-            فريق كاشف
-          </h2>
-        </div>
-
-        <p
-          data-ar="فريق يعمل على تقديم تجربة توعوية ومسؤولة لحماية المستخدمين."
-          data-en="A team delivering a responsible awareness experience to protect users.">
-          فريق يعمل على تقديم تجربة توعوية ومسؤولة لحماية المستخدمين.
-        </p>
-      </div>
-
-      <div class="cards">
-
-        <article class="card team">
-          <div class="card-icon">A</div>
-          <h3>Abdulaziz</h3>
-
-          <span
-            class="role"
-            data-ar="مؤسس تنبيه"
-            data-en="Tanبيه founder">
-            مؤسس تنبيه
-          </span>
-
-          <p
-            data-ar=" المسؤول برمجة الموقع والبوت وإدارة تجربة منصّة كاشف."
-            data-en="CEO, website and bot developer, and Kashef experience lead.">
-            المدير التنفيذي ومسؤول برمجة الموقع والبوت وإدارة تجربة منصّة كاشف.
-          </p>
-        </article>
-
-        <article class="card team">
-          <div class="card-icon">T</div>
-
-          <h3
-            data-ar="فريق التوعية"
-            data-en="Awareness team">
-            فريق التوعية
-          </h3>
-
-          <span
-            class="role"
-            data-ar="محتوى أمني"
-            data-en="Security content">
-            محتوى أمني
-          </span>
-
-          <p
-            data-ar="يبسّط المفاهيم الأمنية ويحوّلها إلى نصائح عملية."
-            data-en="Simplifies security concepts into practical advice.">
-            يبسّط المفاهيم الأمنية ويحوّلها إلى نصائح عملية.
-          </p>
-        </article>
-
-        <article class="card team">
-          <div class="card-icon">B</div>
-
-          <h3
-            data-ar="فريق البوت"
-            data-en="Bot team">
-            فريق البوت
-          </h3>
-
-          <span
-            class="role"
-            data-ar="تنبيهات وأتمتة"
-            data-en="Alerts and automation">
-            تنبيهات وأتمتة
-          </span>
-
-          <p
-            data-ar="يطوّر أدوات التنبيه والمساعدة بشكل آمن ومسؤول."
-            data-en="Builds alerting and assistance tools safely and responsibly.">
-            يطوّر أدوات التنبيه والمساعدة بشكل آمن ومسؤول.
-          </p>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="attacks">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <span
-            class="kicker"
-            data-ar="مكتبة كاشف"
-            data-en="Kashef library">
-            مكتبة كاشف
-          </span>
-
-          <h2
-            data-ar="أنواع الاختراقات"
-            data-en="Attack types">
-            أنواع الاختراقات
-          </h2>
-        </div>
-
-        <p
-          data-ar="اضغط على أي بطاقة لمعرفة تعريف مختصر ونصيحة دفاعية."
-          data-en="Click any card for a brief definition and a defensive tip.">
-          اضغط على أي بطاقة لمعرفة تعريف مختصر ونصيحة دفاعية.
-        </p>
-      </div>
-
-      <div class="cards">
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">✉</div>
-
-          <h3
-            data-ar="التصيد الاحتيالي"
-            data-en="Phishing">
-            التصيد الاحتيالي
-          </h3>
-
-          <p
-            data-ar="رسائل أو صفحات مزيفة تحاول الحصول على بياناتك."
-            data-en="Fake messages or pages attempting to obtain your data.">
-            رسائل أو صفحات مزيفة تحاول الحصول على بياناتك.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: تحقق من النطاق والمرسل ولا تضغط الروابط المستعجلة."
-            data-en="Tip: Check the domain and sender; do not click urgent links.">
-            النصيحة: تحقق من النطاق والمرسل ولا تضغط الروابط المستعجلة.
-          </div>
-        </article>
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">▣</div>
-
-          <h3
-            data-ar="البرمجيات الخبيثة"
-            data-en="Malware">
-            البرمجيات الخبيثة
-          </h3>
-
-          <p
-            data-ar="برامج أو ملفات قد تضر الجهاز أو تسرق المعلومات."
-            data-en="Programs or files that may damage your device or steal information.">
-            برامج أو ملفات قد تضر الجهاز أو تسرق المعلومات.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: حمّل من المصادر الرسمية وحدّث نظامك باستمرار."
-            data-en="Tip: Download from official sources and keep your system updated.">
-            النصيحة: حمّل من المصادر الرسمية وحدّث نظامك باستمرار.
-          </div>
-        </article>
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">▤</div>
-
-          <h3
-            data-ar="برامج الفدية"
-            data-en="Ransomware">
-            برامج الفدية
-          </h3>
-
-          <p
-            data-ar="هجوم يشفّر الملفات ويطلب مالًا مقابل استعادتها."
-            data-en="An attack that encrypts files and demands money for their recovery.">
-            هجوم يشفّر الملفات ويطلب مالًا مقابل استعادتها.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: احتفظ بنسخ احتياطية منفصلة واستشر مختصًا."
-            data-en="Tip: Keep separate backups and consult a specialist.">
-            النصيحة: احتفظ بنسخ احتياطية منفصلة واستشر مختصًا.
-          </div>
-        </article>
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">♙</div>
-
-          <h3
-            data-ar="سرقة الحسابات"
-            data-en="Account theft">
-            سرقة الحسابات
-          </h3>
-
-          <p
-            data-ar="استخدام كلمات مرور مسرّبة أو ضعيفة للدخول إلى حسابك."
-            data-en="Using leaked or weak passwords to access your account.">
-            استخدام كلمات مرور مسرّبة أو ضعيفة للدخول إلى حسابك.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: استخدم كلمة مرور فريدة وفعّل المصادقة الثنائية."
-            data-en="Tip: Use a unique password and enable two-factor authentication.">
-            النصيحة: استخدم كلمة مرور فريدة وفعّل المصادقة الثنائية.
-          </div>
-        </article>
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">◌</div>
-
-          <h3
-            data-ar="الهندسة الاجتماعية"
-            data-en="Social engineering">
-            الهندسة الاجتماعية
-          </h3>
-
-          <p
-            data-ar="التلاعب بك لإفشاء معلومة أو تنفيذ إجراء."
-            data-en="Manipulating you into revealing information or taking an action.">
-            التلاعب بك لإفشاء معلومة أو تنفيذ إجراء.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: توقف وتحقق عبر قناة مستقلة قبل الاستجابة."
-            data-en="Tip: Pause and verify through an independent channel before responding.">
-            النصيحة: توقف وتحقق عبر قناة مستقلة قبل الاستجابة.
-          </div>
-        </article>
-
-        <article class="card attack" tabindex="0">
-          <div class="card-icon">◈</div>
-
-          <h3
-            data-ar="حجب الخدمة DDoS"
-            data-en="DDoS attacks">
-            حجب الخدمة DDoS
-          </h3>
-
-          <p
-            data-ar="إغراق موقع بطلبات كثيرة لتعطيل الوصول إليه."
-            data-en="Flooding a site with requests to disrupt access.">
-            إغراق موقع بطلبات كثيرة لتعطيل الوصول إليه.
-          </p>
-
-          <div
-            class="details"
-            data-ar="النصيحة: استخدم حماية للخادم ومراقبة للطلبات غير الطبيعية."
-            data-en="Tip: Use server protection and monitor unusual requests.">
-            النصيحة: استخدم حماية للخادم ومراقبة للطلبات غير الطبيعية.
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="notice">
-        <strong
-          data-ar="تنبيه توعوي:"
-          data-en="Awareness notice:">
-          تنبيه توعوي:
-        </strong>
-
-        <span
-          data-ar="منصّة كاشف للتوعية والحماية فقط. لا توجد خدمة تضمن أمان أي رابط بنسبة 100%. لا تستخدم هذه المعلومات لاختراق حسابات أو أجهزة دون تصريح."
-          data-en="Kashef is for awareness and protection only. No service guarantees that a link is 100% safe. Do not use this information to access accounts or devices without authorization.">
-          منصّة كاشف للتوعية والحماية فقط. لا توجد خدمة تضمن أمان أي رابط بنسبة 100%.
-          لا تستخدم هذه المعلومات لاختراق حسابات أو أجهزة دون تصريح.
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container footer">
-
-      <span>
-        <b data-ar="كاشف" data-en="Kashef">
-          كاشف
-        </b>
-
-        —
-
-        <span
-          data-ar="منصّة أمان الروابط"
-          data-en="Link safety platform">
-          منصّة أمان الروابط
-        </span>
-      </span>
-
-      <span
-        data-ar="كاشف — منصة كاشف للتوعية والحماية"
-        data-en="كاشف — Tanبيه founder and lead developer">
-        <small © 2026 جميع الحقوق محفوظة لـمنصه كاشف>
-      </span>
-
-      <a
-        href="#top"
-        data-ar="↑ العودة للأعلى"
-        data-en="↑ Back to top">
-        ↑ العودة للأعلى
-      </a>
-
-    </div>
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const languageButton =
-        document.getElementById("languageButton");
-
-      const mobileButton =
-        document.getElementById("mobileButton");
-
-      const navigation =
-        document.getElementById("navigation");
-
-      const form =
-        document.getElementById("scanForm");
-
-      const input =
-        document.getElementById("urlInput");
-
-      const clearButton =
-        document.getElementById("clearButton");
-
-      const scanButton =
-        document.getElementById("scanButton");
-
-      const resultBox =
-        document.getElementById("scanResult");
-
-      let language =
-        localStorage.getItem("kashefLanguage") === "en"
-          ? "en"
-          : "ar";
-
-      const messages = {
-        ar: {
-          empty: "أدخل رابطًا أولًا",
-          example: "مثال: https://example.com",
-          invalid: "أدخل رابطًا صالحًا",
-          invalidHint:
-            "استخدم رابطًا يبدأ بـ https:// أو http://",
-          loading: "جاري التحليل...",
-          scan: "🔍 ابدأ الفحص",
-          danger: "انتبه، الرابط يحتاج مراجعة",
-          safe: "لم تظهر مؤشرات خطر معروفة",
-          score: "مؤشر أولي"
-        },
-
-        en: {
-          empty: "Enter a link first",
-          example: "Example: https://example.com",
-          invalid: "Enter a valid link",
-          invalidHint:
-            "Use a link beginning with https:// or http://",
-          loading: "Analyzing...",
-          scan: "🔍 Start scan",
-          danger: "Caution: this link needs review",
-          safe: "No known risk indicators found",
-          score: "Initial indicator"
-        }
-      };
-
-      function translatePage() {
-        document.documentElement.lang = language;
-
-        document.documentElement.dir =
-          language === "ar" ? "rtl" : "ltr";
-
-        document
-          .querySelectorAll("[data-ar][data-en]")
-          .forEach(function (element) {
-            element.textContent =
-              element.getAttribute("data-" + language);
-          });
-
-        languageButton.textContent =
-          language === "ar" ? "English" : "العربية";
-
-        localStorage.setItem(
-          "kashefLanguage",
-          language
-        );
-      }
-
-      function getValidUrl(value) {
-        try {
-          const finalUrl =
-            /^https?:\/\//i.test(value)
-              ? value
-              : "https://" + value;
-
-          const url = new URL(finalUrl);
-
-          if (
-            url.protocol !== "http:" &&
-            url.protocol !== "https:"
-          ) {
-            return null;
-          }
-
-          return url;
-        } catch (error) {
-          return null;
-        }
-      }
-
-      function showMessage(title, description) {
-        resultBox.innerHTML = `
-          <div class="result warning">
-            <span>⚠️</span>
-
-            <div>
-              <strong></strong>
-              <small></small>
-            </div>
-          </div>
-        `;
-
-        resultBox.querySelector("strong").textContent = title;
-        resultBox.querySelector("small").textContent = description;
-      }
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const value = input.value.trim();
-        const currentMessages = messages[language];
-
-        if (value === "") {
-          showMessage(
-            currentMessages.empty,
-            currentMessages.example
-          );
-
-          input.focus();
-          return;
-        }
-
-        const url = getValidUrl(value);
-
-        if (!url) {
-          showMessage(
-            currentMessages.invalid,
-            currentMessages.invalidHint
-          );
-
-          input.focus();
-          return;
-        }
-
-        const suspicious =
-          /login|verify|update|wallet|gift|free[- ]?prize|secure[- ]?account|bit\.ly/i
-            .test(value);
-
-        const score = suspicious
-          ? 31
-          : Math.min(99, 91 + (url.hostname.length % 8));
-
-        scanButton.disabled = true;
-        scanButton.textContent = currentMessages.loading;
-        resultBox.innerHTML = "";
-
-        setTimeout(function () {
-          const current = messages[language];
-
-          resultBox.innerHTML = `
-            <div class="result ${
-              suspicious ? "warning" : "safe"
-            }">
-              <span style="font-size:22px">
-                ${suspicious ? "⚠️" : "✓"}
-              </span>
-
-              <div>
-                <strong></strong>
-                <small dir="ltr"></small>
-              </div>
-            </div>
-          `;
-
-          resultBox.querySelector("strong").textContent =
-            suspicious ? current.danger : current.safe;
-
-          resultBox.querySelector("small").textContent =
-            url.hostname +
-            " · " +
-            current.score +
-            " " +
-            score +
-            "%";
-
-          scanButton.disabled = false;
-          scanButton.textContent = current.scan;
-        }, 450);
-      });
-
-      clearButton.addEventListener("click", function () {
-        input.value = "";
-        resultBox.innerHTML = "";
-        input.focus();
-      });
-
-      languageButton.addEventListener("click", function () {
-        language = language === "ar" ? "en" : "ar";
-        translatePage();
-      });
-
-      mobileButton.addEventListener("click", function () {
-        navigation.classList.toggle("open");
-
-        mobileButton.setAttribute(
-          "aria-expanded",
-          navigation.classList.contains("open")
-        );
-      });
-
-      document
-        .querySelectorAll(".nav a")
-        .forEach(function (link) {
-          link.addEventListener("click", function () {
-            navigation.classList.remove("open");
-
-            mobileButton.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-          });
-        });
-
-      document
-        .querySelectorAll(".attack")
-        .forEach(function (card) {
-          function toggleCard() {
-            card.classList.toggle("open");
-          }
-
-          card.addEventListener("click", toggleCard);
-
-          card.addEventListener("keydown", function (event) {
-            if (
-              event.key === "Enter" ||
-              event.key === " "
-            ) {
-              event.preventDefault();
-              toggleCard();
-            }
-          });
-        });
-
-      translatePage();
-    });
-  </script>
+<div class="app">
+
+<aside class="side">
+<div class="brand">
+مذاكرة قدرات عبدالعزيز
+<small>مساحة مذاكرتك اليومية</small>
+</div>
+
+<nav class="nav">
+<button class="active" onclick="page('home',this)">الرئيسية</button>
+<button onclick="page('quant',this)">الكمي</button>
+<button onclick="page('verbal',this)">اللفظي</button>
+<button onclick="page('calendar',this)">التقويم</button>
+<button onclick="page('tests',this)">اختباراتي</button>
+<button onclick="page('settings',this)">الإعدادات</button>
+</nav>
+</aside>
+
+<main class="main">
+
+<div class="top">
+<div>
+<b>مذاكرة قدرات عبدالعزيز</b>
+<div id="now" class="date"></div>
+</div>
+<button class="secondary" onclick="toggleTheme()">☀️/🌙</button>
+</div>
+
+<!-- الرئيسية -->
+
+<section id="home" class="page show">
+
+<div class="hero">
+<div>
+<h1>ابدأ مذاكرتك بهدوء 🎯</h1>
+<p class="muted">خطوة اليوم أهم من خطة مثالية لم تبدأها.</p>
+</div>
+<button class="primary" onclick="startStudy()">▶ ابدأ مذاكرتي اليوم</button>
+</div>
+
+<div class="message">
+<b>رسالة اليوم 💚</b>
+<span id="motivation"></span>
+</div>
+
+<div class="grid">
+<div class="stat">
+إنجاز اليوم
+<b id="daily">0%</b>
+<div class="progress"><div id="dailyBar" class="bar"></div></div>
+</div>
+
+<div class="stat">
+إنجاز الأسبوع
+<b id="weekly">0%</b>
+<div class="progress"><div id="weeklyBar" class="bar"></div></div>
+</div>
+
+<div class="stat">
+مجموع الساعات
+<b id="hours">00:00</b>
+<span class="muted">هذا الأسبوع</span>
+</div>
+</div>
+
+<div class="layout">
+
+<div class="card">
+<div class="section">
+<h2>مهامي</h2>
+<button class="secondary" onclick="addTask()">+ إضافة مهمة</button>
+</div>
+<div id="tasks"></div>
+</div>
+
+<div class="card center">
+<div class="section"><h2>جلسة المذاكرة</h2></div>
+<div class="clock" id="clock">00:00:00</div>
+<button class="primary" id="timerBtn" onclick="timer()">ابدأ</button>
+<button class="secondary" onclick="resetTimer()">تصفير</button>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:15px">
+<div class="section">
+<h2>موعد اختبار القدرات</h2>
+<button class="secondary" onclick="exam()">تحديد</button>
+</div>
+<div id="examBox" class="muted"></div>
+</div>
+
+</section>
+
+<!-- الكمي -->
+
+<section id="quant" class="page">
+
+<div class="file-manager">
+
+<div class="section">
+<h1>📐 الكمي</h1>
+<button class="primary" onclick="createFolder('quant')">+ مجلد جديد</button>
+</div>
+
+<div class="muted" style="margin-bottom:15px">
+رتّب كتبك وملفاتك مثل تطبيق «ملفات» في الجوال.
+</div>
+
+<div id="quantManager"></div>
+
+</div>
+
+</section>
+
+<!-- اللفظي -->
+
+<section id="verbal" class="page">
+
+<div class="file-manager">
+
+<div class="section">
+<h1>📚 اللفظي</h1>
+<button class="primary" onclick="createFolder('verbal')">+ مجلد جديد</button>
+</div>
+
+<div class="muted" style="margin-bottom:15px">
+أنشئ مجلداتك وادخل إليها واحفظ ملفاتك داخلها.
+</div>
+
+<div id="verbalManager"></div>
+
+</div>
+
+</section>
+
+<!-- التقويم -->
+
+<section id="calendar" class="page">
+
+<div class="card">
+<div class="section">
+<h2 id="month"></h2>
+<button class="secondary" onclick="exam()">📅 موعد الاختبار</button>
+</div>
+<div id="cal" class="cal"></div>
+</div>
+
+</section>
+
+<!-- الاختبارات -->
+
+<section id="tests" class="page">
+
+<div class="card">
+<div class="section">
+<h2>آخر الاختبارات والنتائج</h2>
+<button class="secondary" onclick="testAdd()">+ نتيجة</button>
+</div>
+<div id="testsList"></div>
+</div>
+
+</section>
+
+<!-- الإعدادات -->
+
+<section id="settings" class="page">
+
+<div class="card">
+<h2>الإعدادات</h2>
+<p class="muted">
+الملفات والبيانات محفوظة داخل جهازك.
+</p>
+
+<button class="secondary" onclick="clearAll()">
+مسح البيانات المحلية
+</button>
+</div>
+
+</section>
+
+</main>
+</div>
+
+<!-- المودال -->
+
+<div id="modal" class="modal">
+<div id="box" class="box"></div>
+</div>
+
+<!-- عارض الملفات -->
+
+<div id="viewer" class="viewer">
+
+<div class="viewer-head">
+<button class="secondary" onclick="closeViewer()">← رجوع</button>
+<div id="viewerTitle" class="viewer-title"></div>
+</div>
+
+<div id="viewerBody" class="viewer-body"></div>
+
+</div>
+
+<script>
+
+/* =========================
+   البيانات العامة
+========================= */
+
+const days=[
+'الأحد','الإثنين','الثلاثاء',
+'الأربعاء','الخميس','الجمعة','السبت'
+];
+
+const msgs=[
+'لا تنتظر الحماس؛ ابدأ، والحماس سيلحق بك. 💚',
+'كل سؤال تحله اليوم يقربك من الدرجة التي تريدها. 🎯',
+'ذاكر بهدوء، افهم، ثم كرر. 🌿',
+'ساعة مركزة اليوم أفضل من ساعات مشتتة. ⏱️',
+'أخطاؤك ليست فشلًا؛ هي خريطة طريقك. 🧠',
+'استمر حتى لو كان التقدم بسيطًا، المهم ألا تتوقف. ⭐',
+'هذا يوم جديد لنسخة أقوى منك. ابدأ الآن. 🚀'
+];
+
+let tasks=JSON.parse(localStorage.tasks||'[]');
+let tests=JSON.parse(localStorage.tests||'[]');
+
+let elapsed=0;
+let running=false;
+let interval=null;
+
+
+/* =========================
+   IndexedDB للملفات
+========================= */
+
+const DB_NAME='abdulaziz_study_files';
+const DB_VERSION=1;
+const STORE='files';
+
+let db=null;
+
+function openDB(){
+
+return new Promise((resolve,reject)=>{
+
+const request=indexedDB.open(DB_NAME,DB_VERSION);
+
+request.onupgradeneeded=e=>{
+
+const database=e.target.result;
+
+if(!database.objectStoreNames.contains(STORE)){
+
+const store=database.createObjectStore(STORE,{
+keyPath:'id',
+autoIncrement:true
+});
+
+store.createIndex('folderId','folderId',{unique:false});
+
+}
+
+};
+
+request.onsuccess=e=>{
+db=e.target.result;
+resolve(db);
+};
+
+request.onerror=()=>{
+reject(request.error);
+};
+
+});
+
+}
+
+
+/* =========================
+   المجلدات
+========================= */
+
+let folders=JSON.parse(localStorage.folders||'[]');
+
+/*
+كل مجلد:
+{
+ id,
+ type: quant/verbal,
+ name,
+ parentId:null أو رقم
+}
+*/
+
+function saveFolders(){
+localStorage.folders=JSON.stringify(folders);
+}
+
+
+/* المجلد الحالي لكل قسم */
+
+let currentFolder={
+quant:null,
+verbal:null
+};
+
+
+/* =========================
+   حجم الملف
+========================= */
+
+function formatSize(bytes){
+
+if(bytes<1024)return bytes+' B';
+
+if(bytes<1024*1024)
+return (bytes/1024).toFixed(1)+' KB';
+
+if(bytes<1024*1024*1024)
+return (bytes/1024/1024).toFixed(1)+' MB';
+
+return (bytes/1024/1024/1024).toFixed(1)+' GB';
+
+}
+
+
+/* =========================
+   أيقونة الملف
+========================= */
+
+function fileIcon(name,type=''){
+
+const ext=name.split('.').pop().toLowerCase();
+
+if(type.includes('pdf')||ext==='pdf')return '📕';
+
+if(['jpg','jpeg','png','gif','webp','svg','bmp'].includes(ext))
+return '🖼️';
+
+if(['mp4','webm','mov','mkv'].includes(ext))
+return '🎬';
+
+if(['mp3','wav','ogg','m4a'].includes(ext))
+return '🎵';
+
+if(['txt','md','json','html','css','js','xml'].includes(ext))
+return '📄';
+
+if(['doc','docx'].includes(ext))
+return '📝';
+
+if(['xls','xlsx','csv'].includes(ext))
+return '📊';
+
+if(['ppt','pptx'].includes(ext))
+return '📽️';
+
+if(['zip','rar','7z'].includes(ext))
+return '🗜️';
+
+return '📄';
+
+}
+
+
+/* =========================
+   عرض الملفات
+========================= */
+
+async function renderManager(type){
+
+const root=document.getElementById(
+type==='quant'?'quantManager':'verbalManager'
+);
+
+const current=currentFolder[type];
+
+let html='';
+
+if(current===null){
+
+const fs=folders.filter(
+f=>f.type===type && !f.parentId
+);
+
+html+=`
+<div class="file-toolbar">
+
+<label class="primary" style="display:inline-block">
+📤 إضافة ملفات
+<input hidden type="file" multiple onchange="uploadFiles(null,'${type}',this)">
+</label>
+
+</div>
+`;
+
+html+=renderBreadcrumb(type,null);
+
+if(fs.length){
+
+html+='<div class="folder-grid">';
+
+fs.forEach(f=>{
+
+const children=folders.filter(
+x=>x.parentId===f.id
+).length;
+
+html+=`
+<div class="folder-item"
+onclick="openFolder('${type}',${f.id})">
+
+<div class="folder-icon">📁</div>
+<div class="folder-name">${escapeHTML(f.name)}</div>
+
+<div class="folder-count">
+${children} مجلد
+</div>
+
+</div>
+`;
+
+});
+
+html+='</div>';
+
+}else{
+
+html+=`
+<div class="empty">
+<div class="empty-icon">📁</div>
+<div>لا توجد مجلدات بعد</div>
+<p>أنشئ مجلدًا وابدأ ترتيب ملفاتك.</p>
+</div>
+`;
+
+}
+
+}else{
+
+const folder=folders.find(x=>x.id===current);
+
+if(!folder){
+currentFolder[type]=null;
+return renderManager(type);
+}
+
+html+=renderBreadcrumb(type,folder);
+
+html+=`
+<div class="file-toolbar">
+
+<button class="secondary"
+onclick="createFolder('${type}',${folder.id})">
+📁 مجلد جديد
+</button>
+
+<label class="primary">
+📤 إضافة ملفات
+<input hidden type="file" multiple
+onchange="uploadFiles(${folder.id},'${type}',this)">
+</label>
+
+<button class="secondary"
+onclick="goUp('${type}')">
+↩ رجوع
+</button>
+
+</div>
+`;
+
+const children=folders.filter(
+x=>x.parentId===folder.id
+);
+
+if(children.length){
+
+html+='<div class="folder-grid" style="margin-bottom:18px">';
+
+children.forEach(f=>{
+
+html+=`
+<div class="folder-item"
+onclick="openFolder('${type}',${f.id})">
+
+<div class="folder-icon">📁</div>
+<div class="folder-name">${escapeHTML(f.name)}</div>
+
+</div>
+`;
+
+});
+
+html+='</div>';
+
+}
+
+const files=await getFiles(folder.id);
+
+if(files.length){
+
+html+='<div class="file-list">';
+
+files.forEach(file=>{
+
+html+=`
+<div class="file-row">
+
+<div class="file-icon">
+${fileIcon(file.name,file.type)}
+</div>
+
+<div class="file-info">
+<div class="file-name">
+${escapeHTML(file.name)}
+</div>
+
+<div class="file-meta">
+${formatSize(file.size)} • ${file.type||'ملف'}
+</div>
+</div>
+
+<div class="file-actions">
+
+<button class="secondary"
+onclick="openStoredFile(${file.id})">
+فتح
+</button>
+
+<button class="danger"
+onclick="deleteStoredFile(${file.id})">
+حذف
+</button>
+
+</div>
+
+</div>
+`;
+
+});
+
+html+='</div>';
+
+}else{
+
+html+=`
+<div class="empty">
+<div class="empty-icon">📄</div>
+<div>المجلد فارغ</div>
+<p>أضف ملفات من جهازك.</p>
+</div>
+`;
+
+}
+
+}
+
+root.innerHTML=html;
+
+}
+
+
+/* =========================
+   شريط المسار
+========================= */
+
+function renderBreadcrumb(type,folder){
+
+let html=`
+<div class="path">
+<button onclick="openFolder('${type}',null)">
+${type==='quant'?'📐 الكمي':'📚 اللفظي'}
+</button>
+`;
+
+if(folder){
+
+let chain=[];
+let f=folder;
+
+while(f){
+
+chain.unshift(f);
+f=folders.find(x=>x.id===f.parentId);
+
+}
+
+chain.forEach(x=>{
+
+html+=`
+<span>›</span>
+<span class="current">
+${escapeHTML(x.name)}
+</span>
+`;
+
+});
+
+}
+
+html+='</div>';
+
+return html;
+
+}
+
+
+/* =========================
+   فتح مجلد
+========================= */
+
+function openFolder(type,id){
+
+currentFolder[type]=id;
+renderManager(type);
+
+}
+
+
+/* =========================
+   الرجوع
+========================= */
+
+function goUp(type){
+
+const current=currentFolder[type];
+
+if(current===null)return;
+
+const folder=folders.find(x=>x.id===current);
+
+currentFolder[type]=folder?.parentId||null;
+
+renderManager(type);
+
+}
+
+
+/* =========================
+   إنشاء مجلد
+========================= */
+
+function createFolder(type,parentId=null){
+
+open(`
+<h2>📁 مجلد جديد</h2>
+
+<input id="folderName"
+type="text"
+placeholder="اسم المجلد">
+
+<button class="primary"
+onclick="saveNewFolder('${type}',${parentId===null?'null':parentId})">
+إنشاء
+</button>
+
+<button class="secondary"
+onclick="closeM()">
+إلغاء
+</button>
+`);
+
+}
+
+
+function saveNewFolder(type,parentId){
+
+const input=document.getElementById('folderName');
+
+const name=input.value.trim();
+
+if(!name)return;
+
+folders.push({
+
+id:Date.now()+Math.floor(Math.random()*1000),
+
+type:type,
+
+name:name,
+
+parentId:parentId
+
+});
+
+saveFolders();
+
+closeM();
+
+renderManager(type);
+
+}
+
+
+/* =========================
+   رفع الملفات
+========================= */
+
+async function uploadFiles(folderId,type,input){
+
+if(!input.files.length)return;
+
+for(const file of [...input.files]){
+
+await addFileToDB(folderId,file);
+
+}
+
+input.value='';
+
+await renderManager(type);
+
+}
+
+
+/* =========================
+   حفظ الملف في IndexedDB
+========================= */
+
+function addFileToDB(folderId,file){
+
+return new Promise((resolve,reject)=>{
+
+const tx=db.transaction(STORE,'readwrite');
+
+const store=tx.objectStore(STORE);
+
+store.add({
+
+folderId:folderId,
+
+name:file.name,
+
+size:file.size,
+
+type:file.type,
+
+blob:file,
+
+createdAt:Date.now()
+
+});
+
+tx.oncomplete=()=>resolve();
+
+tx.onerror=()=>reject(tx.error);
+
+});
+
+}
+
+
+/* =========================
+   الحصول على الملفات
+========================= */
+
+function getFiles(folderId){
+
+return new Promise((resolve,reject)=>{
+
+const tx=db.transaction(STORE,'readonly');
+
+const store=tx.objectStore(STORE);
+
+const index=store.index('folderId');
+
+const request=index.getAll(folderId);
+
+request.onsuccess=()=>{
+resolve(request.result||[]);
+};
+
+request.onerror=()=>{
+reject(request.error);
+};
+
+});
+
+}
+
+
+/* =========================
+   حذف ملف
+========================= */
+
+async function deleteStoredFile(id){
+
+if(!confirm('هل تريد حذف هذا الملف؟'))return;
+
+await new Promise((resolve,reject)=>{
+
+const tx=db.transaction(STORE,'readwrite');
+
+tx.objectStore(STORE).delete(id);
+
+tx.oncomplete=resolve;
+
+tx.onerror=()=>reject(tx.error);
+
+});
+
+/* نعيد عرض القسم الحالي */
+
+renderManager('quant');
+renderManager('verbal');
+
+}
+
+
+/* =========================
+   فتح الملف
+========================= */
+
+async function openStoredFile(id){
+
+const file=await getFile(id);
+
+if(!file)return;
+
+const blob=file.blob;
+
+const url=URL.createObjectURL(blob);
+
+const viewer=document.getElementById('viewer');
+
+const body=document.getElementById('viewerBody');
+
+document.getElementById('viewerTitle').textContent=file.name;
+
+body.innerHTML='';
+
+const ext=file.name.split('.').pop().toLowerCase();
+
+
+/* PDF */
+
+if(file.type==='application/pdf'||ext==='pdf'){
+
+body.innerHTML=`
+<iframe src="${url}"></iframe>
+`;
+
+}
+
+
+/* الصور ومنها SVG */
+
+else if(
+file.type.startsWith('image/')||
+['svg','png','jpg','jpeg','gif','webp','bmp'].includes(ext)
+){
+
+const img=document.createElement('img');
+
+img.src=url;
+
+body.appendChild(img);
+
+}
+
+
+/* الفيديو */
+
+else if(file.type.startsWith('video/')||
+['mp4','webm','mov'].includes(ext)){
+
+const video=document.createElement('video');
+
+video.src=url;
+video.controls=true;
+video.autoplay=false;
+
+body.appendChild(video);
+
+}
+
+
+/* الصوت */
+
+else if(file.type.startsWith('audio/')||
+['mp3','wav','ogg','m4a'].includes(ext)){
+
+const audio=document.createElement('audio');
+
+audio.src=url;
+audio.controls=true;
+
+body.appendChild(audio);
+
+}
+
+
+/* ملفات نصية */
+
+else if(
+file.type.startsWith('text/')||
+['txt','md','json','html','css','js','xml'].includes(ext)
+){
+
+const text=await blob.text();
+
+const pre=document.createElement('div');
+
+pre.className='text-view';
+
+pre.textContent=text;
+
+body.appendChild(pre);
+
+}
+
+
+/* غير مدعوم */
+
+else{
+
+body.innerHTML=`
+<div class="unsupported">
+
+<div style="font-size:60px">
+${fileIcon(file.name,file.type)}
+</div>
+
+<h2>${escapeHTML(file.name)}</h2>
+
+<p class="muted">
+هذا النوع من الملفات لا يمكن عرضه مباشرة
+داخل المتصفح.
+</p>
+
+<a
+href="${url}"
+download="${escapeHTML(file.name)}"
+class="primary"
+style="display:inline-block;text-decoration:none">
+⬇️ فتح / تنزيل الملف
+</a>
+
+</div>
+`;
+
+}
+
+viewer.classList.add('open');
+
+}
+
+
+/* =========================
+   جلب ملف واحد
+========================= */
+
+function getFile(id){
+
+return new Promise((resolve,reject)=>{
+
+const tx=db.transaction(STORE,'readonly');
+
+const request=tx.objectStore(STORE).get(id);
+
+request.onsuccess=()=>{
+resolve(request.result);
+};
+
+request.onerror=()=>{
+reject(request.error);
+};
+
+});
+
+}
+
+
+/* =========================
+   إغلاق العارض
+========================= */
+
+function closeViewer(){
+
+const body=document.getElementById('viewerBody');
+
+const media=body.querySelectorAll('img,video,audio,iframe');
+
+media.forEach(x=>{
+
+if(x.src && x.src.startsWith('blob:')){
+
+URL.revokeObjectURL(x.src);
+
+}
+
+});
+
+body.innerHTML='';
+
+document.getElementById('viewer').classList.remove('open');
+
+}
+
+
+/* =========================
+   حذف مجلد مع محتوياته
+========================= */
+
+async function deleteFolderRecursive(id){
+
+const children=folders.filter(x=>x.parentId===id);
+
+for(const child of children){
+
+await deleteFolderRecursive(child.id);
+
+}
+
+const files=await getFiles(id);
+
+for(const file of files){
+
+await new Promise((resolve,reject)=>{
+
+const tx=db.transaction(STORE,'readwrite');
+
+tx.objectStore(STORE).delete(file.id);
+
+tx.oncomplete=resolve;
+
+tx.onerror=()=>reject(tx.error);
+
+});
+
+}
+
+folders=folders.filter(x=>x.id!==id);
+
+}
+
+
+/* =========================
+   Escape
+========================= */
+
+function escapeHTML(str){
+
+return String(str)
+.replaceAll('&','&amp;')
+.replaceAll('<','&lt;')
+.replaceAll('>','&gt;')
+.replaceAll('"','&quot;')
+.replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   التنقل
+========================= */
+
+function page(id,b){
+
+document.querySelectorAll('.page')
+.forEach(x=>x.classList.remove('show'));
+
+document.getElementById(id)
+.classList.add('show');
+
+document.querySelectorAll('.nav button')
+.forEach(x=>x.classList.remove('active'));
+
+b?.classList.add('active');
+
+if(id==='quant')renderManager('quant');
+
+if(id==='verbal')renderManager('verbal');
+
+}
+
+
+/* =========================
+   الوقت
+========================= */
+
+function now(){
+
+let d=new Date();
+
+document.getElementById('now').textContent=
+d.toLocaleDateString('ar-SA',{
+weekday:'long',
+year:'numeric',
+month:'long',
+day:'numeric'
+})
++' • '+
+d.toLocaleTimeString('ar-SA',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+
+now();
+
+setInterval(now,1000);
+
+
+/* =========================
+   المهام
+========================= */
+
+function renderTasks(){
+
+let el=document.getElementById('tasks');
+
+el.innerHTML=tasks.length?
+
+tasks.map((x,i)=>`
+
+<div class="task">
+
+<input
+type="checkbox"
+${x.done?'checked':''}
+onchange="tasks[${i}].done=this.checked;save();renderTasks()">
+
+<span style="${x.done?'text-decoration:line-through;color:var(--muted)':''}">
+${escapeHTML(x.text)}
+</span>
+
+<button class="x"
+onclick="tasks.splice(${i},1);save();renderTasks()">
+حذف
+</button>
+
+</div>
+
+`).join('')
+
+:
+
+'<p class="muted">ما عندك مهام. أضف وش عليك اليوم.</p>';
+
+let p=Math.round(
+tasks.filter(x=>x.done).length/
+(tasks.length||1)*100
+);
+
+daily.textContent=p+'%';
+dailyBar.style.width=p+'%';
+
+weekly.textContent=p+'%';
+weeklyBar.style.width=p+'%';
+
+}
+
+
+function addTask(){
+
+open(`
+<h2>مهمة جديدة</h2>
+
+<input id="taskText"
+type="text"
+placeholder="وش عليك اليوم؟">
+
+<button class="primary"
+onclick="saveTask()">
+إضافة
+</button>
+
+<button class="secondary"
+onclick="closeM()">
+إلغاء
+</button>
+`);
+
+}
+
+
+function saveTask(){
+
+let x=taskText.value.trim();
+
+if(x){
+
+tasks.push({
+text:x,
+done:false
+});
+
+save();
+renderTasks();
+closeM();
+
+}
+
+}
+
+
+/* =========================
+   المؤقت
+========================= */
+
+function startStudy(){
+
+if(!running)timer();
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+
+function timer(){
+
+running=!running;
+
+timerBtn.textContent=
+running?'إيقاف':'استمرار';
+
+if(running){
+
+interval=setInterval(()=>{
+
+elapsed++;
+
+clock.textContent=fmt(elapsed);
+
+hours.textContent=
+fmtShort(
+(+(localStorage.weekSeconds||0))+elapsed
+);
+
+},1000);
+
+}else{
+
+clearInterval(interval);
+
+}
+
+}
+
+
+function resetTimer(){
+
+clearInterval(interval);
+
+running=false;
+elapsed=0;
+
+clock.textContent='00:00:00';
+timerBtn.textContent='ابدأ';
+
+}
+
+
+function fmt(s){
+
+return[
+Math.floor(s/3600),
+Math.floor(s%3600/60),
+s%60
+]
+.map(x=>String(x).padStart(2,'0'))
+.join(':');
+
+}
+
+
+function fmtShort(s){
+
+return String(Math.floor(s/3600)).padStart(2,'0')
++':'+
+String(Math.floor(s%3600/60)).padStart(2,'0');
+
+}
+
+
+/* =========================
+   الوضع الليلي
+========================= */
+
+function toggleTheme(){
+
+document.body.classList.toggle('light');
+
+localStorage.dark=
+document.body.classList.contains('light')
+?'false':'true';
+
+}
+
+
+/* =========================
+   الاختبار
+========================= */
+
+function exam(){
+
+open(`
+<h2>موعد اختبار القدرات</h2>
+
+<input id="examDate"
+type="date"
+value="${localStorage.exam||''}">
+
+<button class="primary"
+onclick="saveExam()">
+حفظ
+</button>
+`);
+
+}
+
+
+function saveExam(){
+
+localStorage.exam=examDate.value;
+
+closeM();
+
+renderExam();
+renderCal();
+
+}
+
+
+function renderExam(){
+
+let e=localStorage.exam;
+
+examBox.innerHTML=e?
+
+(()=>{
+
+let n=Math.max(
+0,
+Math.ceil(
+(new Date(e+'T23:59:59')-new Date())
+/86400000
+)
+);
+
+return`
+<b style="font-size:28px;color:var(--accent)">
+${n}
+</b>
+يوم متبقي
+<br>
+<span class="muted">
+${new Date(e).toLocaleDateString('ar-SA')}
+</span>
+`;
+
+})()
+
+:'لم تحدد موعد الاختبار بعد.';
+
+}
+
+
+/* =========================
+   التقويم
+========================= */
+
+function renderCal(){
+
+let d=new Date();
+
+let y=d.getFullYear();
+let m=d.getMonth();
+
+let first=new Date(y,m,1).getDay();
+
+let num=new Date(y,m+1,0).getDate();
+
+month.textContent=
+new Date(y,m).toLocaleDateString(
+'ar-SA',
+{month:'long',year:'numeric'}
+);
+
+cal.innerHTML=days.map(x=>
+`<div class="head">${x.slice(0,3)}</div>`
+).join('');
+
+for(let i=0;i<first;i++)
+cal.innerHTML+=
+'<div style="visibility:hidden"></div>';
+
+for(let n=1;n<=num;n++){
+
+let td=n===d.getDate();
+
+let ev=
+localStorage.exam &&
+new Date(localStorage.exam).getDate()===n &&
+new Date(localStorage.exam).getMonth()===m
+?'⭐ اختبار':'';
+
+cal.innerHTML+=`
+
+<div class="${td?'today':''}">
+<b>${n}</b>
+<div class="event">${ev}</div>
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =========================
+   الاختبارات
+========================= */
+
+function testAdd(){
+
+open(`
+<h2>إضافة نتيجة</h2>
+
+<input id="testName"
+type="text"
+placeholder="اسم الاختبار">
+
+<input id="testScore"
+type="text"
+placeholder="الدرجة">
+
+<button class="primary"
+onclick="saveTest()">
+حفظ
+</button>
+`);
+
+}
+
+
+function saveTest(){
+
+let n=
+testName.value.trim()||
+'اختبار قدرات';
+
+tests.unshift({
+
+n,
+s:testScore.value||'-',
+d:new Date().toLocaleDateString('ar-SA')
+
+});
+
+save();
+renderTests();
+closeM();
+
+}
+
+
+function renderTests(){
+
+testsList.innerHTML=
+
+tests.length?
+
+tests.map(x=>`
+
+<div class="file-row">
+
+<div class="file-icon">📝</div>
+
+<div class="file-info">
+
+<div class="file-name">
+${escapeHTML(x.n)}
+</div>
+
+<div class="file-meta">
+${x.d}
+</div>
+
+</div>
+
+<b>${escapeHTML(x.s)}</b>
+
+</div>
+
+`).join('')
+
+:
+
+'<p class="muted">لا توجد نتائج بعد.</p>';
+
+}
+
+
+/* =========================
+   الحفظ العام
+========================= */
+
+function save(){
+
+localStorage.tasks=JSON.stringify(tasks);
+localStorage.tests=JSON.stringify(tests);
+saveFolders();
+
+}
+
+
+/* =========================
+   المودال
+========================= */
+
+function open(x){
+
+box.innerHTML=x;
+
+modal.classList.add('open');
+
+}
+
+
+function closeM(){
+
+modal.classList.remove('open');
+
+}
+
+
+/* =========================
+   مسح البيانات
+========================= */
+
+async function clearAll(){
+
+if(!confirm('مسح كل بيانات الموقع والملفات المحفوظة؟'))
+return;
+
+localStorage.clear();
+
+if(db){
+
+await new Promise(resolve=>{
+
+const tx=db.transaction(STORE,'readwrite');
+
+tx.objectStore(STORE).clear();
+
+tx.oncomplete=resolve;
+tx.onerror=resolve;
+
+});
+
+}
+
+location.reload();
+
+}
+
+
+/* =========================
+   التشغيل
+========================= */
+
+(async function(){
+
+try{
+
+await openDB();
+
+renderTasks();
+renderExam();
+renderCal();
+renderTests();
+
+renderManager('quant');
+renderManager('verbal');
+
+}catch(e){
+
+console.error(e);
+
+alert(
+'تعذر تشغيل نظام الملفات في هذا المتصفح. جرّب فتح الموقع في Chrome أو Safari حديث.'
+);
+
+}
+
+})();
+
+
+window.addEventListener(
+'beforeunload',
+()=>{
+
+if(elapsed){
+
+localStorage.weekSeconds=
+(+(localStorage.weekSeconds||0))+elapsed;
+
+}
+
+}
+);
+
+</script>
 
 </body>
 </html>
